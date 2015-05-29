@@ -45,7 +45,7 @@ public class UTS_API {
     }
 
     public UTS_API() throws IOException, UtsFault_Exception {
-        PropertiesUTS props=new PropertiesUTS();
+        UTS_Properties props=new UTS_Properties();
         this.username = props.getUsername();
         this.password = props.getpassword();
         this.umlsRelease = props.getumlsRelease();

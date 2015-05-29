@@ -15,14 +15,14 @@ import java.util.Properties;
  *
  * @author amaranto
  */
-public class PropertiesUTS {
+public class UTS_Properties {
     private FileInputStream fich;
     private Properties props;
     private static String conFile="/usr/local/GATE_Developer_8.0/plugins"
             + "/UTS_Tagger/conf.properties";
     
-    public PropertiesUTS() throws FileNotFoundException, IOException {
-        this.fich=new FileInputStream(PropertiesUTS.conFile);
+    public UTS_Properties() throws FileNotFoundException, IOException {
+        this.fich=new FileInputStream(UTS_Properties.conFile);
         this.props=new Properties();
         this.props.load(this.fich);
     }
