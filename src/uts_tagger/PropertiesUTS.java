@@ -1,0 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uts_tagger;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+/**
+ *
+ * @author amaranto
+ */
+public class PropertiesUTS {
+    private FileInputStream fich;
+    private Properties props;
+    private static String conFile="/usr/local/GATE_Developer_8.0/plugins"
+            + "/UTS_Tagger/conf.properties";
+    
+    public PropertiesUTS() throws FileNotFoundException, IOException {
+        this.fich=new FileInputStream(PropertiesUTS.conFile);
+        this.props=new Properties();
+        this.props.load(this.fich);
+    }
+    
+    public String getUsername(){
+        return this.getProperty("username");
+    }
+    
+    public String getpassword(){
+        return this.getProperty("password");
+    }
+    
+    public String getumlsRelease(){
+        return this.getProperty("umlsRelease");
+    }
+    
+    private String getProperty(String prop){
+        return this.props.getProperty(prop);
+    }
+    
+    
+}
