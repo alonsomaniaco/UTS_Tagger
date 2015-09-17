@@ -56,8 +56,36 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
             AnnotationSet set = this.document.getAnnotations().get(this.inputAnnotationSetName);
             AnnotationSet out = this.document.getAnnotations(this.outputAnnotationSetName);
 
+            UTS_API api;
+            
+            if (this.paramOrProperties==ParamOrPropertiesOptions.Properties) {
+                api=new UTS_API();
+            } else {
+                if(this.UTSUser!=""){
+                    throw new ResourceInstantiationException(
+                            "The tagger requires yout UTS User when you select Params config "
+                                    + "in paramsOrProperties parameter.");
+                }
+                if(this.UTSPassword!=""){
+                    throw new ResourceInstantiationException(
+                            "The tagger requires your UTS Password when you select Params config "
+                                    + "in paramsOrProperties parameter.");
+                }
+                if(this.UMLSRelease!=""){
+                    throw new ResourceInstantiationException(
+                            "The tagger requires UML Release dictionary to use when you select Params config "
+                                    + "in paramsOrProperties parameter.");
+                }
+                if(this.termsToSearch.isEmpty()){
+                    throw new ResourceInstantiationException(
+                            "The tagger requires a list of tokens to search in UTS api.");
+                }
+                
+                api=new UTS_API(this.UTSUser, this.UTSPassword, this.UMLSRelease);
+            }
+            
             //Llamado así para que utilice los datos del properties
-            UTS_API api = new UTS_API();
+            //UTS_API api = new UTS_API();
 
             for (Iterator<Annotation> itAnotacion = set.iterator(); itAnotacion.hasNext();) {
                 Annotation nextAnotation = itAnotacion.next();
@@ -75,6 +103,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
                     out.add(nextAnotation.getStartNode().getOffset(), nextAnotation.getEndNode().getOffset(), "Mi etiqueta", features);
                 }
             }
+            this.fireProcessFinished();
             /*while (iterator.hasNext()) {
              Annotation an = iterator.next();
                 
@@ -141,7 +170,6 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         return termsToSearch;
     }
 
-    @Optional
     @RunTime
     @CreoleParameter(comment = "list of terms to search in uts")
     public void setTermsToSearch(ArrayList<String> termsToSearch) {
@@ -154,9 +182,8 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         return inputAnnotationSetName;
     }
 
-    @Optional
     @RunTime
-    @CreoleParameter(comment = "name of the annotationSet used for input")
+    @CreoleParameter(comment = "name of the annotationSet used for input", defaultValue = "Token")
     public void setInputAnnotationSetName(String inputAnnotationSetName) {
         this.inputAnnotationSetName = inputAnnotationSetName;
     }
@@ -167,12 +194,22 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         return outputAnnotationSetName;
     }
 
-    @Optional
     @RunTime
-    @CreoleParameter(
-            comment = "name of the annotationSet used for output")
+    @CreoleParameter(comment = "name of the annotationSet used for output", defaultValue = "UTS")
     public void setOutputAnnotationSetName(String setName) {
         this.outputAnnotationSetName = setName;
+    }
+    
+    private ParamOrPropertiesOptions paramOrProperties;
+    
+    public ParamOrPropertiesOptions getParamOrProperties() {
+        return paramOrProperties;
+    }
+    
+    @RunTime
+    @CreoleParameter(comment = "Set if plugin takes connection options from Properties file or params", defaultValue = "Properties")
+    public void setParamOrProperties(ParamOrPropertiesOptions paramOrProperties) {
+        this.paramOrProperties = paramOrProperties;
     }
 
 }
