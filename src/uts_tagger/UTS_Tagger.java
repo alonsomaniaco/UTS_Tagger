@@ -87,12 +87,14 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
             //Llamado así para que utilice los datos del properties
             //UTS_API api = new UTS_API();
 
+        
             for (Iterator<Annotation> itAnotacion = set.iterator(); itAnotacion.hasNext();) {
                 Annotation nextAnotation = itAnotacion.next();
 
                 String termino = nextAnotation.getFeatures().get("string").toString();
                 FeatureMap features = Factory.newFeatureMap();
-
+                
+                //Modificar para que busque el tipo y no el término tal cuál.
                 if (this.termsToSearch.contains(termino)) {
                     List<UiLabel> findTerm = api.findTerm(termino);
                     for (Iterator<UiLabel> itUiLabel = findTerm.iterator(); itUiLabel.hasNext();) {
