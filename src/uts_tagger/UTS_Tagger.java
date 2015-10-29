@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -87,13 +88,16 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
             //Llamado así para que utilice los datos del properties
             //UTS_API api = new UTS_API();
 
+        
             for (Iterator<Annotation> itAnotacion = set.iterator(); itAnotacion.hasNext();) {
                 Annotation nextAnotation = itAnotacion.next();
 
                 String termino = nextAnotation.getFeatures().get("string").toString();
+                String termCategory=nextAnotation.getFeatures().get(this.categoryName).toString();
                 FeatureMap features = Factory.newFeatureMap();
-
-                if (this.termsToSearch.contains(termino)) {
+                
+                
+                if (this.termsToSearch.contains(termCategory)) {
                     List<UiLabel> findTerm = api.findTerm(termino);
                     for (Iterator<UiLabel> itUiLabel = findTerm.iterator(); itUiLabel.hasNext();) {
                         UiLabel nextUiLabel = itUiLabel.next();
@@ -125,7 +129,15 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         System.out.println("Reiniciado");
     }
 
+    //Params of the Gate plugin
     private String UTSUser;
+    private String UTSPassword;
+    private String UMLSRelease;
+    private ArrayList<String> termsToSearch;
+    private String inputAnnotationSetName;
+    private String outputAnnotationSetName;
+    private ParamOrPropertiesOptions paramOrProperties;
+    private String categoryName;
 
     public String getUTSUser() {
         return UTSUser;
@@ -137,8 +149,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     public void setUTSUser(String UTSUser) {
         this.UTSUser = UTSUser;
     }
-
-    private String UTSPassword;
+   
 
     public String getUTSPassword() {
         return UTSPassword;
@@ -150,8 +161,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     public void setUTSPassword(String UTSPassword) {
         this.UTSPassword = UTSPassword;
     }
-
-    private String UMLSRelease;
+  
 
     public String getUMLSRelease() {
         return UMLSRelease;
@@ -163,8 +173,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     public void setUMLSRelease(String UMLSRelease) {
         this.UMLSRelease = UMLSRelease;
     }
-
-    private ArrayList<String> termsToSearch;
+   
 
     public ArrayList<String> getTermsToSearch() {
         return termsToSearch;
@@ -175,8 +184,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     public void setTermsToSearch(ArrayList<String> termsToSearch) {
         this.termsToSearch = termsToSearch;
     }
-
-    private String inputAnnotationSetName;
+   
 
     public String getInputAnnotationSetName() {
         return inputAnnotationSetName;
@@ -187,8 +195,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     public void setInputAnnotationSetName(String inputAnnotationSetName) {
         this.inputAnnotationSetName = inputAnnotationSetName;
     }
-
-    private String outputAnnotationSetName;
+    
 
     public String getOutputAnnotationSetName() {
         return outputAnnotationSetName;
@@ -200,7 +207,6 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         this.outputAnnotationSetName = setName;
     }
     
-    private ParamOrPropertiesOptions paramOrProperties;
     
     public ParamOrPropertiesOptions getParamOrProperties() {
         return paramOrProperties;
@@ -210,6 +216,16 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     @CreoleParameter(comment = "Set if plugin takes connection options from Properties file or params", defaultValue = "Properties")
     public void setParamOrProperties(ParamOrPropertiesOptions paramOrProperties) {
         this.paramOrProperties = paramOrProperties;
+    }
+    
+    public String getCategoryName() {
+        return categoryName;
+    }
+    
+    @RunTime
+    @CreoleParameter(comment = "Set this param to specify the tag name for word category", defaultValue = "category")
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
 }
