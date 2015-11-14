@@ -55,7 +55,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
              AnnotationSet out = this.document.getAnnotations("miPlugin");*/
 
             AnnotationSet set = this.document.getAnnotations().get(this.inputAnnotationSetName);
-            AnnotationSet out = this.document.getAnnotations(this.outputAnnotationSetName);
+            AnnotationSet out = this.document.getAnnotations();
 
             UTS_API api;
             
@@ -91,9 +91,10 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
         
             for (Iterator<Annotation> itAnotacion = set.iterator(); itAnotacion.hasNext();) {
                 Annotation nextAnotation = itAnotacion.next();
-
-                String termino = nextAnotation.getFeatures().get("string").toString();
+                
+                String termino = nextAnotation.getFeatures().get(this.wordString).toString();
                 String termCategory=nextAnotation.getFeatures().get(this.categoryName).toString();
+               
                 FeatureMap features = Factory.newFeatureMap();
                 
                 
@@ -104,7 +105,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
                         features.put(nextUiLabel.getUi(), nextUiLabel.getLabel());
                     }
 
-                    out.add(nextAnotation.getStartNode().getOffset(), nextAnotation.getEndNode().getOffset(), "Mi etiqueta", features);
+                    out.add(nextAnotation.getStartNode().getOffset(), nextAnotation.getEndNode().getOffset(), this.outputAnnotationSetName, features);
                 }
             }
             this.fireProcessFinished();
@@ -138,6 +139,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     private String outputAnnotationSetName;
     private ParamOrPropertiesOptions paramOrProperties;
     private String categoryName;
+    private String wordString;
 
     public String getUTSUser() {
         return UTSUser;
@@ -226,6 +228,17 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     @CreoleParameter(comment = "Set this param to specify the tag name for word category", defaultValue = "category")
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    
+    public String getWordString() {
+        return wordString;
+    }
+
+    @RunTime
+    @CreoleParameter(comment = "Set this param to specify the tag name for word text", defaultValue = "string")
+    public void setWordString(String wordString) {
+        this.wordString = wordString;
     }
 
 }
