@@ -60,19 +60,19 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
             UTS_API api;
             
             if (this.paramOrProperties==ParamOrPropertiesOptions.Properties) {
-                api=new UTS_API();
+                api=new UTS_API(this.maxResults);
             } else {
-                if(this.UTSUser!=""){
+                if(this.UTSUser==""){
                     throw new ResourceInstantiationException(
                             "The tagger requires yout UTS User when you select Params config "
                                     + "in paramsOrProperties parameter.");
                 }
-                if(this.UTSPassword!=""){
+                if(this.UTSPassword==""){
                     throw new ResourceInstantiationException(
                             "The tagger requires your UTS Password when you select Params config "
                                     + "in paramsOrProperties parameter.");
                 }
-                if(this.UMLSRelease!=""){
+                if(this.UMLSRelease==""){
                     throw new ResourceInstantiationException(
                             "The tagger requires UML Release dictionary to use when you select Params config "
                                     + "in paramsOrProperties parameter.");
@@ -82,7 +82,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
                             "The tagger requires a list of tokens to search in UTS api.");
                 }
                 
-                api=new UTS_API(this.UTSUser, this.UTSPassword, this.UMLSRelease);
+                api=new UTS_API(this.UTSUser, this.UTSPassword, this.UMLSRelease, this.maxResults);
             }
             
             //Llamado así para que utilice los datos del properties
@@ -140,6 +140,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     private ParamOrPropertiesOptions paramOrProperties;
     private String categoryName;
     private String wordString;
+    private Integer maxResults;
 
     public String getUTSUser() {
         return UTSUser;
@@ -239,6 +240,17 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     @CreoleParameter(comment = "Set this param to specify the tag name for word text", defaultValue = "string")
     public void setWordString(String wordString) {
         this.wordString = wordString;
+    }
+
+    
+    public Integer getMaxResults() {
+        return maxResults;
+    }
+
+    @RunTime
+    @CreoleParameter(comment = "Max number of result per word", defaultValue = "5")
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
     }
 
 }

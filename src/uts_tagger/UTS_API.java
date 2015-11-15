@@ -34,23 +34,27 @@ public class UTS_API {
     
     //Obtiene el Proxy Grant Ticket - dura 8 horas es necesario para generar "single-use" tickets.
     private String ticketGrantingTicket;
+    
+    private int maxResults;
 
-    public UTS_API(String username, String password, String umlsRelease) 
+    public UTS_API(String username, String password, String umlsRelease, int maxResults) 
             throws UtsFault_Exception {
         this.username = username;
         this.password = password;
         this.umlsRelease = umlsRelease;
         this.ticketGrantingTicket= securityService.getProxyGrantTicket(this.username
                 , this.password);
+        this.maxResults=maxResults;
     }
 
-    public UTS_API() throws IOException, UtsFault_Exception {
+    public UTS_API(int maxResults) throws IOException, UtsFault_Exception {
         UTS_Properties props=new UTS_Properties();
         this.username = props.getUsername();
         this.password = props.getpassword();
         this.umlsRelease = props.getumlsRelease();
         this.ticketGrantingTicket= securityService.getProxyGrantTicket(this.username
                 , this.password);
+        this.maxResults=maxResults;
     }
     
     private String getSingleUseTicket() throws UtsFault_Exception{
@@ -60,7 +64,7 @@ public class UTS_API {
     private Psf getPSF(){
         Psf psfMetathesaurusContent = new Psf();	    
         //Limita el numero de resultados mostrados por página a 50
-        psfMetathesaurusContent.setPageLn(150);
+        psfMetathesaurusContent.setPageLn(this.maxResults);
         return psfMetathesaurusContent;
     }
     
