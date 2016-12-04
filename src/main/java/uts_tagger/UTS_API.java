@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uts_tagger;
 
-import gov.nih.nlm.uts.webservice.finder.Psf;
-import gov.nih.nlm.uts.webservice.finder.UiLabel;
-import gov.nih.nlm.uts.webservice.finder.UtsWsFinderController;
-import gov.nih.nlm.uts.webservice.finder.UtsWsFinderControllerImplService;
-import gov.nih.nlm.uts.webservice.security.UtsFault_Exception;
-import gov.nih.nlm.uts.webservice.security.UtsWsSecurityController;
-import gov.nih.nlm.uts.webservice.security.UtsWsSecurityControllerImplService;
+import gov.nih.nlm.uts.webservice.Psf;
+import gov.nih.nlm.uts.webservice.UiLabel;
+import gov.nih.nlm.uts.webservice.UtsFault_Exception;
+import gov.nih.nlm.uts.webservice.UtsWsFinderController;
+import gov.nih.nlm.uts.webservice.UtsWsFinderControllerImplService;
+import gov.nih.nlm.uts.webservice.UtsWsSecurityController;
+import gov.nih.nlm.uts.webservice.UtsWsSecurityControllerImplService;
 import java.io.IOException;
 import java.util.List;
 
@@ -68,7 +63,7 @@ public class UTS_API {
         return psfMetathesaurusContent;
     }
     
-    public List<UiLabel> findTerm(String term) throws UtsFault_Exception, gov.nih.nlm.uts.webservice.finder.UtsFault_Exception{
+    public List<UiLabel> findTerm(String term) throws UtsFault_Exception{
         return this.utsFinderService.findConcepts(this.getSingleUseTicket(), this.umlsRelease
                 , "atom", term, "words", this.getPSF());
     }

@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uts_tagger;
 
 import gate.Annotation;
@@ -18,7 +12,7 @@ import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
-import gov.nih.nlm.uts.webservice.finder.UiLabel;
+import gov.nih.nlm.uts.webservice.UiLabel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,21 +33,7 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
     @Override
     public void execute() throws ExecutionException {
         System.out.println("Iniciado");
-
-        /**
-         * Código para procesar el texto por nuestra propia cuenta.
-         */
-        /*String contenido=this.document.getContent().toString();
-         String[] palabras=contenido.split(" ");
-         for(String palabra:palabras){
-         String palabraReplaced = palabra.replaceAll(",", "").replaceAll("\\.", "")
-         .replaceAll(";", "").replaceAll(":", "");
-         System.out.println(palabraReplaced);
-         }*/
         try {
-            /*AnnotationSet set = this.document.getAnnotations().get("Token");
-             AnnotationSet out = this.document.getAnnotations("miPlugin");*/
-
             AnnotationSet set = this.document.getAnnotations().get(this.inputAnnotationSetName);
             AnnotationSet out = this.document.getAnnotations();
 
@@ -109,16 +89,6 @@ public class UTS_Tagger extends AbstractLanguageAnalyser {
                 }
             }
             this.fireProcessFinished();
-            /*while (iterator.hasNext()) {
-             Annotation an = iterator.next();
-                
-             String termino=an.getFeatures().get("string").toString();
-             List<UiLabel> findTerm = api.findTerm(termino);
-                
-
-             out.add(an.getStartNode().getOffset(), an.getEndNode().getOffset()
-             , "Mi etiqueta", Utils.featureMap("type", "cosa"));
-             }*/
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace(System.err);

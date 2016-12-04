@@ -17,3 +17,6 @@ hs_err_pid*
 
 #don't upload maven target folder
 /target/
+
+#don't upload project file
+.project
