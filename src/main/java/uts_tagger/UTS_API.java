@@ -42,8 +42,8 @@ public class UTS_API {
         this.maxResults=maxResults;
     }
 
-    public UTS_API(int maxResults) throws IOException, UtsFault_Exception {
-        UTS_Properties props=new UTS_Properties();
+    public UTS_API(String propertiesFile, int maxResults) throws IOException, UtsFault_Exception {
+        UTS_Properties props=new UTS_Properties(propertiesFile);
         this.username = props.getUsername();
         this.password = props.getpassword();
         this.umlsRelease = props.getumlsRelease();

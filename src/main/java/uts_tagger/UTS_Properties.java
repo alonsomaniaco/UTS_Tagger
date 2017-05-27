@@ -13,11 +13,9 @@ import java.util.Properties;
 public class UTS_Properties {
     private FileInputStream fich;
     private Properties props;
-    private static String conFile="/usr/local/GATE_Developer_8.0/plugins"
-            + "/UTS_Tagger/conf.properties";
     
-    public UTS_Properties() throws FileNotFoundException, IOException {
-        this.fich=new FileInputStream(UTS_Properties.conFile);
+    public UTS_Properties(String propertiesFile) throws FileNotFoundException, IOException {
+        this.fich=new FileInputStream(propertiesFile);
         this.props=new Properties();
         this.props.load(this.fich);
     }

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CREOLE-DIRECTORY>  
-   <JAR SCAN="true">target/UTS_Tagger.jar</JAR>  
+   <JAR SCAN="true">target/UTS_tagger-jar-with-dependencies.jar</JAR>  
 </CREOLE-DIRECTORY>
