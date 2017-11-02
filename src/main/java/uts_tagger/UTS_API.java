@@ -7,7 +7,6 @@ import gov.nih.nlm.uts.webservice.UtsWsFinderController;
 import gov.nih.nlm.uts.webservice.UtsWsFinderControllerImplService;
 import gov.nih.nlm.uts.webservice.UtsWsSecurityController;
 import gov.nih.nlm.uts.webservice.UtsWsSecurityControllerImplService;
-import java.io.IOException;
 import java.util.List;
 
 /**

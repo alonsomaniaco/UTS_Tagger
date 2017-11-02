@@ -8,7 +8,6 @@ import gate.Resource;
 import gate.creole.*;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
-import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 import gov.nih.nlm.uts.webservice.UiLabel;
 import java.util.ArrayList;
