@@ -37,20 +37,10 @@ public class UTS_API {
         this.username = username;
         this.password = password;
         this.umlsRelease = umlsRelease;
-        this.ticketGrantingTicket= securityService.getProxyGrantTicket(this.username
-                , this.password);
+        this.ticketGrantingTicket= securityService.getProxyGrantTicket(this.username, this.password);
         this.maxResults=maxResults;
     }
 
-    public UTS_API(String propertiesFile, int maxResults) throws IOException, UtsFault_Exception {
-        UTS_Properties props=new UTS_Properties(propertiesFile);
-        this.username = props.getUsername();
-        this.password = props.getpassword();
-        this.umlsRelease = props.getumlsRelease();
-        this.ticketGrantingTicket= securityService.getProxyGrantTicket(this.username
-                , this.password);
-        this.maxResults=maxResults;
-    }
     
     private String getSingleUseTicket() throws UtsFault_Exception{
         return securityService.getProxyTicket(this.ticketGrantingTicket, UTS_API.serviceName);
